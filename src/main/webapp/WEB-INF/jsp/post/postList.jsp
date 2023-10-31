@@ -22,20 +22,20 @@
 					<td>${post.subject}</td>
 					<td>
 						<%-- zonedDateTime -> Date -> String --%>
-						<fmt:parseDate value="${post.createdAt}" var="parsedCreatedAt" pattern="yyyy-MM-dd'T'HH:mm:ss" />
-						<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
+						<%--  <fmt:parseDate value="${post.createdAt}" var="parsedCreatedAt" pattern="yyyy-MM-dd'T'HH:mm:ss" />--%>
+						<fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:dd" /> 
 					</td>
 					<td>
-						<fmt:parseDate value="${post.updatedAt}" var="parsedUpdatedAt" pattern="yyyy-MM-dd'T'HH:mm:ss" />
-						<fmt:formatDate value="${parsedUpdatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
-					</td>
+						<%-- <fmt:parseDate value="${post.updatedAt}" var="parsedUpdatedAt" pattern="yyyy-MM-dd'T'HH:mm:ss" />--%>
+						<fmt:formatDate value="${post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
+					</td> 
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 
 		<div class="d-flex justify-content-end">
-			<a href="/post/post-create-view" class="btn btn-warning">글쓰기</a>
+			<a href="/post/post-create-view" class="btn btn-info">글쓰기</a>
 		</div>
 	</div>
 </div>
