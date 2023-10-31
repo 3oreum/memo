@@ -17,6 +17,11 @@ public class UserBO {
 		return userRepository.findByLoginId(loginId); 
 	}
 	
+	// input:loginId, password		output:UserEntity(null이거나 entity)
+	public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
+		return userRepository.findByLoginIdAndPassword(loginId, password);
+	}
+	
 	// input:4개 파라미터      output:id(pk)   id가 없을 수도 있기 때문에 Integer
 	public Integer addUser(String loginId, String password, String name, String email) {
 		// UserEntity = save(UserEntity);
