@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.memo.post.bo.PostBO;
 
@@ -24,13 +25,15 @@ public class PostRestController {
 	public Map<String, Object> create( // mybatis
 			@RequestParam("subject") String subject,
 			@RequestParam("content") String content,
+			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpSession session){
 		
 		// session 에 들어있는 유저 id를 꺼낸다.
 		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		// DB insert
-		postBO.addPost(userId, subject, content);
+		postBO.addPost(userId, userLoginId, subject, content, file);
 		
 		// 응답값
 		Map<String, Object> result = new HashMap<>();

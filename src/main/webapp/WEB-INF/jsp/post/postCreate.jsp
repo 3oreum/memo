@@ -8,7 +8,7 @@
 		<textarea id="content" class="form-control" rows="10" placeholder="내용을 입력하세요."></textarea>
 	
 		<div class="d-flex justify-content-end my-4">
-			<input type="file" id="file">
+			<input type="file" id="file" accept=".jpg, .jpeg, .png, .gif">
 		</div>
 		
 		<div class="d-flex justify-content-between">
@@ -43,6 +43,9 @@ $(document).ready(function(){
 		//alert("저장");
 		let subject = $("#subject").val();
 		let content = $("#content").val();
+		let fileName = $("#file").val(); // C:\fakepath\스크린샷 2023-11-02 오후 1.16.58.png
+		
+		//alert(file);
 		
 		// validation check
 		if (!subject){
@@ -55,11 +58,28 @@ $(document).ready(function(){
 			return;
 		}
 		
+		// 파일이 업로드된 경우에만 확장자 체크
+		if (fileName){
+			//alert("파일이 있다.");
+			// C:\fakepath\스크린샷 2023-11-02 오후 1.16.58.png
+			// 확장자만 뽑은 후 소문자로 변경한다. toLowerCase() => 소문자로 변경해 줌 
+			let ext = fileName.split(".").pop().toLowerCase();
+			//alert(ext);
+		
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1){ // inArray()
+				alert("이미지 파일만 업로드할 수 있습니다.");
+				$("#file").val(""); // 파일을 비운다.
+				return;
+			}
+		}
+		
+		
 		// request param 구성 
 		// 이미지를 업로드할 때는 반드시 form 태그가 있어야 한다.
 		let formData = new FormData();
 		formData.append("subject", subject);  // key 는 form 태그의 name 속성과 같고 request paramete명이 된다.
 		formData.append("content", content);
+		formData.append("file", $("#file")[0].files[0]);
 		
 		
 		$.ajax({
